@@ -13,9 +13,11 @@ export class CountdownComponent implements OnInit, OnDestroy {
   private timerId: ReturnType<typeof setInterval>;
 
   ngOnInit(): void {
-    this.timerTickFn(); // to avoid 1s delay
-    if (this.remainingTime) {
-      this.timerId = setInterval(this.timerTickFn, 1000);
+    if (this.expireDate) {
+      this.timerTickFn(); // to avoid 1s delay
+      if (this.remainingTime) {
+        this.timerId = setInterval(this.timerTickFn, 1000);
+      }
     }
   }
 
