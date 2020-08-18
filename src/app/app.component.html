@@ -4,9 +4,10 @@
     <span>Category</span>
     <span>Remaining Time</span>
   </div>
-  <div *ngFor="let contract of contracts" class="contract-container">
+  <div *ngFor="let contract of contracts" class="contract-container"
+    [class.expired]="!contract.remainingTime">
     <span>{{ contract.id }}</span>
     <span>{{ contract.category }}</span>
-    <app-countdown [expireDate]="contract.expiresAt"></app-countdown>
+    <app-time-display [time]="contract.remainingTime"></app-time-display>
   </div>
 </div>

@@ -3,4 +3,5 @@ export interface Contract {
   state: 'live' | 'closed';
   category: 'Education' | 'Healthcare' | 'Infrastructure';
   expiresAt?: Date;
+  remainingTime?: string;
 }
