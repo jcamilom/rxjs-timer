@@ -13,18 +13,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public contracts: Contract[] = MOCK_CONTRACTS;
   private timerId: ReturnType<typeof setInterval>;
+  private nLiveContracts: number;
 
   ngOnInit(): void {
     this.timerTickFn(); // to avoid 1s delay
-    this.timerId = setInterval(this.timerTickFn, 1000);
+    if (this.nLiveContracts > 0) {
+      this.timerId = setInterval(this.timerTickFn, 1000);
+    }
   }
 
   private timerTickFn = () => {
+    this.nLiveContracts = 0;
     this.contracts.forEach(contract => {
       if (contract.state === 'live') {
         contract.remainingTime = calculateRemainingTime(contract.expiresAt);
+        if (contract.remainingTime) {
+          this.nLiveContracts++;
+        }
       }
     });
+    if (this.nLiveContracts === 0) {
+      clearInterval(this.timerId);
+    }
   }
 
   ngOnDestroy(): void {
