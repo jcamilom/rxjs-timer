@@ -14,6 +14,9 @@ export function dateCreator(diff?: { hours?: number, mins?: number, seconds?: nu
   return d;
 }
 
+/**
+ * Returns null if there is no remaining time
+ */
 export function calculateRemainingTime(date: Date): string {
   const now = new Date();
   let remainingTime = Math.floor((date.getTime() - now.getTime()) / 1000);

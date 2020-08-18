@@ -14,11 +14,16 @@ export class CountdownComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.timerTickFn(); // to avoid 1s delay
-    this.timerId = setInterval(this.timerTickFn, 1000);
+    if (this.remainingTime) {
+      this.timerId = setInterval(this.timerTickFn, 1000);
+    }
   }
 
   private timerTickFn = () => {
     this.remainingTime = calculateRemainingTime(this.expireDate);
+    if (!this.remainingTime) {
+      clearInterval(this.timerId);
+    }
   }
 
   ngOnDestroy(): void {
