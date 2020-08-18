@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rxjs-timer"
+    }
+  },
+  "defaultProject": "rxjs-timer",
+  "cli": {
+    "analytics": false
+  }
 }
