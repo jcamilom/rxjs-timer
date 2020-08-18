@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { takeWhile, map } from 'rxjs/operators';
 
-import { Contract } from 'src/app/models/contract.model';
-import { calculateRemainingTime } from 'src/app/utils/utils';
+import { Contract } from '../models/contract.model';
+import { calculateRemainingTime } from '../utils/utils';
 
 @Injectable()
 export class ContractTimerService {
