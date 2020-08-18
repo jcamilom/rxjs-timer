@@ -1,44 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { MOCK_CONTRACTS } from './utils/contracts-mock';
 import { Contract } from './models/contract.model';
-import { calculateRemainingTime } from 'src/app/utils/utils';
+import { ContractTimerService } from './services/contract-timer.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [ContractTimerService]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
   public contracts: Contract[] = MOCK_CONTRACTS;
-  private timerId: ReturnType<typeof setInterval>;
-  private nLiveContracts: number;
+  public contracts$: Observable<Contract[]>;
+
+  constructor(private ctService: ContractTimerService) { }
 
   ngOnInit(): void {
-    this.timerTickFn(); // to avoid 1s delay
-    if (this.nLiveContracts > 0) {
-      this.timerId = setInterval(this.timerTickFn, 1000);
-    }
-  }
-
-  private timerTickFn = () => {
-    this.nLiveContracts = 0;
-    this.contracts.forEach(contract => {
-      if (contract.state === 'live') {
-        contract.remainingTime = calculateRemainingTime(contract.expiresAt);
-        if (contract.remainingTime) {
-          this.nLiveContracts++;
-        }
-      }
-    });
-    if (this.nLiveContracts === 0) {
-      clearInterval(this.timerId);
-    }
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timerId);
+    this.contracts$ = this.ctService.countdown(this.contracts);
   }
 
 }

@@ -4,7 +4,7 @@
     <span>Category</span>
     <span>Remaining Time</span>
   </div>
-  <div *ngFor="let contract of contracts" class="contract-container"
+  <div *ngFor="let contract of contracts$ | async" class="contract-container"
     [class.expired]="!contract.remainingTime">
     <span>{{ contract.id }}</span>
     <span>{{ contract.category }}</span>

@@ -23,6 +23,6 @@ export const MOCK_CONTRACTS: Contract[] = [
     id: 4,
     state: 'live',
     category: 'Infrastructure',
-    expiresAt: dateCreator({ mins: 45, seconds: 40 }),
+    expiresAt: dateCreator({ mins: 45, seconds: 25 }),
   }
 ];
